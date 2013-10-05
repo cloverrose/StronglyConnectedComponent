@@ -2,10 +2,13 @@ package scc;
 import java.util.*;
 
 public class Graph<T> {
+     /**
+     * fromVertex -> [toVertex1, ..., toVertexN]
+     */
     private Map<T, Collection<T>> edges;
 
     public Graph(){
-        this.edges = new HashMap<T, Collection<T>>();  // fromVertex -> [toVertex1,...,toVertexN]
+        this.edges = new HashMap<T, Collection<T>>();
     }
 
     public Collection<T> getVertexes(){

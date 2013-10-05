@@ -12,6 +12,15 @@ public class Test {
         System.out.println(sccs);
     }
 
+    private void testNode(int sampleNumber) {
+        SampleDatas samples = new SampleDatas();
+        Graph<Node> graph = samples.makeNodeSample(sampleNumber);
+
+        SCC<Node> m = new SCC<Node>();
+        Set<Set<Node>> sccs = m.stronglyConnectedComponents(graph);
+        System.out.println(sccs);
+    }
+
     public static void main(String[] args) {
         Test t = new Test();
         System.out.println("========");
@@ -20,5 +29,12 @@ public class Test {
         t.test(2);
         System.out.println("========");
         t.test(3);
+
+        System.out.println("========");
+        t.testNode(1);
+        System.out.println("========");
+        t.testNode(2);
+        System.out.println("========");
+        t.testNode(3);
     }
 }

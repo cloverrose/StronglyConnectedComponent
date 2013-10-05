@@ -35,7 +35,7 @@ public class SCC<T> {
             while(true){
                 T w = S.pop();
                 newScc.add(w);
-                if(vertex == w){
+                if(vertex.equals(w)){
                     break;
                 }
             }

@@ -4,6 +4,7 @@ import scc.*;
 
 public class Test {
     private void test(int sampleNumber) {
+        System.out.println("================================");
         SampleDatas samples = new SampleDatas();
         Graph<Integer> graph = samples.makeSample(sampleNumber);
 
@@ -13,6 +14,7 @@ public class Test {
     }
 
     private void testNode(int sampleNumber) {
+        System.out.println("================================");
         SampleDatas samples = new SampleDatas();
         Graph<Node> graph = samples.makeNodeSample(sampleNumber);
 
@@ -21,20 +23,29 @@ public class Test {
         System.out.println(sccs);
     }
 
+    private void testNodeLarge(int numOfVertexes, int maxNumOfAdjacentVertexes) {
+        System.out.println("================================");
+        SampleDatas samples = new SampleDatas();
+        Graph<Node> graph = samples.makeNodeSampleLarge(numOfVertexes, maxNumOfAdjacentVertexes);
+        graph.show();
+
+        SCC<Node> m = new SCC<Node>();
+        Set<Set<Node>> sccs = m.stronglyConnectedComponents(graph);
+        System.out.println(sccs);
+    }
+
     public static void main(String[] args) {
         Test t = new Test();
-        System.out.println("========");
         t.test(1);
-        System.out.println("========");
         t.test(2);
-        System.out.println("========");
         t.test(3);
 
-        System.out.println("========");
         t.testNode(1);
-        System.out.println("========");
         t.testNode(2);
-        System.out.println("========");
         t.testNode(3);
+
+        t.testNodeLarge(10, 3);
+        t.testNodeLarge(100, 5);
+        t.testNodeLarge(1000, 10);
     }
 }

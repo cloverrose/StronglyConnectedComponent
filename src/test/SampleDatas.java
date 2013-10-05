@@ -1,5 +1,6 @@
 package test;
 import scc.*;
+import java.util.*;
 
 public class SampleDatas {
     public Graph<Integer> makeSample(int sumpleNumber){
@@ -96,6 +97,23 @@ public class SampleDatas {
         graph.addEdge(n0, n1);
         graph.addEdge(n1, n2);
         graph.addEdge(n2, n0);
+        return graph;
+    }
+
+    public Graph<Node> makeNodeSampleLarge(int numOfVertexes, int maxNumOfAdjacentVertexes) {
+        Graph<Node> graph = new Graph<Node>();
+        List<Node> nodes = new ArrayList<Node>(numOfVertexes);
+        for(int i=0;i<numOfVertexes;i++){
+            nodes.add(new Node(i));
+        }
+
+        Random rnd = new Random();
+        for(int i=0;i<numOfVertexes;i++){
+            Node src = nodes.get(i);
+            for(int j=0;j<rnd.nextInt(maxNumOfAdjacentVertexes - 1) + 1;j++){
+                graph.addEdge(src, nodes.get(rnd.nextInt(numOfVertexes)));
+            }
+        }
         return graph;
     }
 }

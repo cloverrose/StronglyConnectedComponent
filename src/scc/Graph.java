@@ -25,4 +25,12 @@ public class Graph<T> {
         }
         this.edges.get(src).add(dst);
     }
+
+    public void show(){
+        System.out.println("[");
+        for(Map.Entry<T, Collection<T>> entry : this.edges.entrySet()){
+            System.out.println("    " + entry.getKey() + " -> " + entry.getValue() + ",");
+        }
+        System.out.println("]");
+    }
 }

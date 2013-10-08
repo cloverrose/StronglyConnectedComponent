@@ -16,7 +16,11 @@ public class Graph<T> {
     }
 
     public Collection<T> getAdjacentVertexes(T vertex){
-        return this.edges.get(vertex);
+        if(this.edges.containsKey(vertex)){
+            return this.edges.get(vertex);
+        }else{
+            return new ArrayList<T>();
+        }
     }
 
     public void addEdge(T src, T dst){

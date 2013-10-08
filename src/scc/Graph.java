@@ -1,5 +1,6 @@
 package scc;
 import java.util.*;
+import java.io.PrintStream;
 
 public class Graph<T> {
      /**
@@ -31,10 +32,14 @@ public class Graph<T> {
     }
 
     public void show(){
-        System.out.println("[");
+        this.show(System.out);
+    }
+
+    public void show(PrintStream out){
+        out.println("[");
         for(Map.Entry<T, Collection<T>> entry : this.edges.entrySet()){
-            System.out.println("    " + entry.getKey() + " -> " + entry.getValue() + ",");
+            out.println("    " + entry.getKey() + " -> " + entry.getValue() + ",");
         }
-        System.out.println("]");
+        out.println("]");
     }
 }

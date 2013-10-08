@@ -1,5 +1,6 @@
 package test;
 import java.util.*;
+import java.io.*;
 import scc.*;
 
 public class Test {
@@ -29,7 +30,7 @@ public class Test {
         new Simplifier<Node>().simplify(graph).show();
     }
 
-    private void testNodeLarge(int numOfVertexes, int maxNumOfAdjacentVertexes) {
+    private void testNodeLarge(int numOfVertexes, int maxNumOfAdjacentVertexes, String fileName) {
         System.out.println("================================");
         SampleDatas samples = new SampleDatas();
         Graph<Node> graph = samples.makeNodeSampleLarge(numOfVertexes, maxNumOfAdjacentVertexes);
@@ -39,7 +40,11 @@ public class Test {
         Set<Set<Node>> sccs = m.stronglyConnectedComponents(graph);
         System.out.println(sccs);
 
-        new Simplifier<Node>().simplify(graph).show();
+        try {
+            new Simplifier<Node>().simplify(graph).show(new PrintStream(fileName));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
@@ -52,8 +57,8 @@ public class Test {
         t.testNode(2);
         t.testNode(3);
 
-        t.testNodeLarge(10, 3);
-        t.testNodeLarge(100, 5);
-        t.testNodeLarge(1000, 10);
+        t.testNodeLarge(10, 3, "SimpleGraph1.txt");
+        t.testNodeLarge(100, 5, "SimpleGraph2.txt");
+        t.testNodeLarge(1000, 10, "SimpleGraph3.txt");
     }
 }

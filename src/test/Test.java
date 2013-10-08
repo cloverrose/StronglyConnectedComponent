@@ -7,20 +7,26 @@ public class Test {
         System.out.println("================================");
         SampleDatas samples = new SampleDatas();
         Graph<Integer> graph = samples.makeSample(sampleNumber);
+        graph.show();
 
         SCC<Integer> m = new SCC<Integer>();
         Set<Set<Integer>> sccs = m.stronglyConnectedComponents(graph);
         System.out.println(sccs);
+
+        new Simplifier<Integer>().simplify(graph).show();
     }
 
     private void testNode(int sampleNumber) {
         System.out.println("================================");
         SampleDatas samples = new SampleDatas();
         Graph<Node> graph = samples.makeNodeSample(sampleNumber);
+        graph.show();
 
         SCC<Node> m = new SCC<Node>();
         Set<Set<Node>> sccs = m.stronglyConnectedComponents(graph);
         System.out.println(sccs);
+
+        new Simplifier<Node>().simplify(graph).show();
     }
 
     private void testNodeLarge(int numOfVertexes, int maxNumOfAdjacentVertexes) {
@@ -32,6 +38,8 @@ public class Test {
         SCC<Node> m = new SCC<Node>();
         Set<Set<Node>> sccs = m.stronglyConnectedComponents(graph);
         System.out.println(sccs);
+
+        new Simplifier<Node>().simplify(graph).show();
     }
 
     public static void main(String[] args) {

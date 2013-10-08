@@ -19,13 +19,13 @@ public class Graph<T> {
         if(this.edges.containsKey(vertex)){
             return this.edges.get(vertex);
         }else{
-            return new ArrayList<T>();
+            return new HashSet<T>();
         }
     }
 
     public void addEdge(T src, T dst){
         if(!this.edges.containsKey(src)){
-            this.edges.put(src, new ArrayList<T>());
+            this.edges.put(src, new HashSet<T>());
         }
         this.edges.get(src).add(dst);
     }

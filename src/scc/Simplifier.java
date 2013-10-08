@@ -3,7 +3,11 @@ import java.util.*;
 
 public class Simplifier<T> {
     public Graph<Set<T>> simplify(Graph<T> graph){
-        Set<Set<T>> sccs = new SCC<T>().stronglyConnectedComponents(graph);
+        return this.simplify(graph, graph.getVertexes());
+    }
+
+    public Graph<Set<T>> simplify(Graph<T> graph, Collection<T> roots){
+        Set<Set<T>> sccs = new SCC<T>().stronglyConnectedComponents(graph, roots);
         Map<T, Set<T>> belongingComponent = new HashMap<T, Set<T>>();
         for(Set<T> scc : sccs){
             for(T vertex : scc){

@@ -44,8 +44,17 @@ public class SCC<T> {
     }
 
     public Set<Set<T>> stronglyConnectedComponents(Graph<T> g){
+        return this.stronglyConnectedComponents(g, g.getVertexes());
+    }
+
+    public Set<Set<T>> stronglyConnectedComponents(Graph<T> g, Collection<T> roots){
         Set<Set<T>> sccs = new HashSet<Set<T>>();
-        for(T v : g.getVertexes()){
+        for(T v : roots){
+            for(Set<T> scc : sccs){
+                if(scc.contains(v)){
+                    continue;
+                }
+            }
             Map<T, Integer> num = new HashMap<T, Integer>();
             Map<T, Integer> low = new HashMap<T, Integer>();
             Stack<T> S = new Stack<T>();

@@ -6,29 +6,50 @@ public class Graph<T> {
      /**
      * fromVertex -> [toVertex1, ..., toVertexN]
      */
-    private Map<T, Collection<T>> edges;
+    private ArrayList<Collection<Integer>> edges;
+    private ArrayList<T> relations;
+    
 
     public Graph(){
-        this.edges = new HashMap<T, Collection<T>>();
+        this.edges = new ArrayList<Collection<Integer>>();
+        this.relations = new ArrayList<T>();
     }
 
     public Collection<T> getVertexes(){
-        return this.edges.keySet();
+        return this.relations;
+    }
+    
+    public int toIndex(T vertex){
+        return this.relations.indexOf(vertex);
+    }
+    
+    public T fromIndex(int index){
+        return this.relations.get(index);
     }
 
+    public Collection<Integer> getAdjacentVertexIndices(Integer vertex){
+        return this.edges.get(vertex);
+    }
+    
     public Collection<T> getAdjacentVertexes(T vertex){
-        if(this.edges.containsKey(vertex)){
-            return this.edges.get(vertex);
-        }else{
-            return new HashSet<T>();
+        Collection<Integer> dstIndices = this.edges.get(this.toIndex(vertex));
+        Collection<T> ret = new ArrayList<T>(dstIndices.size());
+        for(int dstIndex : dstIndices){
+            ret.add(this.fromIndex(dstIndex));
         }
+        return ret;
     }
 
     public void addEdge(T src, T dst){
-        if(!this.edges.containsKey(src)){
-            this.edges.put(src, new HashSet<T>());
+        if(!this.relations.contains(src)){
+            this.relations.add(src);
+            this.edges.add(new ArrayList<Integer>());
         }
-        this.edges.get(src).add(dst);
+        if(!this.relations.contains(dst)){
+            this.relations.add(dst);
+            this.edges.add(new ArrayList<Integer>());
+        }
+        this.edges.get(this.relations.indexOf(src)).add(this.relations.indexOf(dst));
     }
 
     public void show(){
@@ -37,8 +58,14 @@ public class Graph<T> {
 
     public void show(PrintStream out){
         out.println("[");
-        for(Map.Entry<T, Collection<T>> entry : this.edges.entrySet()){
-            out.println("    " + entry.getKey() + " -> " + entry.getValue() + ",");
+        for(int srcIndex=0; srcIndex<this.edges.size(); srcIndex++){
+            T src = this.relations.get(srcIndex);
+            Collection<T> dsts = new ArrayList<T>(this.edges.get(srcIndex).size());
+            for(int dstIndex : this.edges.get(srcIndex)){
+                T dst = this.relations.get(dstIndex);
+                dsts.add(dst);
+            }
+            out.println("    " + src + " -> " + dsts + ",");
         }
         out.println("]");
     }

@@ -18,6 +18,11 @@ public class SCC<T> {
         num.set(vertex, counter.value);
         S.push(vertex);
         for(Integer w : g.getAdjacentVertexIndices(vertex)){
+            for(Set<Integer> scc : sccs){
+                if(scc.contains(w)){
+                    continue;
+                }
+            }
             if(num.get(w) == NULL){
                 visit(g, w, sccs, S, low, num, counter);
                 low.set(vertex, Math.min(low.get(vertex), low.get(w)));

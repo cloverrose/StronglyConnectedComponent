@@ -1,18 +1,23 @@
 package scc;
 import java.util.*;
 import java.io.PrintStream;
+import gnu.trove.set.hash.THashSet;
 
 public class Graph<T> {
      /**
      * fromVertex -> [toVertex1, ..., toVertexN]
      */
-    private ArrayList<Collection<Integer>> edges;
+    private ArrayList<Set<Integer>> edges;
     private ArrayList<T> relations;
-    
 
     public Graph(){
-        this.edges = new ArrayList<Collection<Integer>>();
+        this.edges = new ArrayList<Set<Integer>>();
         this.relations = new ArrayList<T>();
+    }
+
+    public Graph(int size){
+        this.edges = new ArrayList<Set<Integer>>(size);
+        this.relations = new ArrayList<T>(size);
     }
 
     public Collection<T> getVertexes(){
@@ -43,11 +48,11 @@ public class Graph<T> {
     public void addEdge(T src, T dst){
         if(!this.relations.contains(src)){
             this.relations.add(src);
-            this.edges.add(new ArrayList<Integer>());
+            this.edges.add(new THashSet<Integer>());
         }
         if(!this.relations.contains(dst)){
             this.relations.add(dst);
-            this.edges.add(new ArrayList<Integer>());
+            this.edges.add(new THashSet<Integer>());
         }
         this.edges.get(this.relations.indexOf(src)).add(this.relations.indexOf(dst));
     }

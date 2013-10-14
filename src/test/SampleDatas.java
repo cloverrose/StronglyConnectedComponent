@@ -116,4 +116,15 @@ public class SampleDatas {
         }
         return graph;
     }
+    
+    public Graph<Integer> makeSampleLarge(int numOfVertexes, int maxNumOfAdjacentVertexes) {
+        Graph<Integer> graph = new Graph<Integer>(numOfVertexes);
+        Random rnd = new Random();
+        for(int src=0;src<numOfVertexes;src++){
+            for(int j=0;j</*rnd.nextInt(maxNumOfAdjacentVertexes - 1) + 1*/maxNumOfAdjacentVertexes;j++){
+                graph.addEdge(src, rnd.nextInt(numOfVertexes));
+            }
+        }
+        return graph;
+    }
 }

@@ -1,5 +1,6 @@
 package scc;
 import java.util.*;
+import gnu.trove.map.hash.THashMap;
 
 public class Simplifier<T> {
     public Graph<Set<T>> simplify(Graph<T> graph){
@@ -8,7 +9,7 @@ public class Simplifier<T> {
 
     public Graph<Set<T>> simplify(Graph<T> graph, Collection<T> roots){
         Set<Set<T>> sccs = new SCC<T>().stronglyConnectedComponents(graph, roots);
-        Map<T, Set<T>> belongingComponent = new HashMap<T, Set<T>>();
+        Map<T, Set<T>> belongingComponent = new THashMap<T, Set<T>>();
         for(Set<T> scc : sccs){
             for(T vertex : scc){
                 belongingComponent.put(vertex, scc);

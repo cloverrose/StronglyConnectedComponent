@@ -1,5 +1,6 @@
 package scc;
 import java.util.*;
+
 import gnu.trove.set.hash.THashSet;
 
 public class Graph<T> {
@@ -22,11 +23,11 @@ public class Graph<T> {
     public Collection<T> getVertexes(){
         return this.relations;
     }
-    
+
     public int toIndex(T vertex){
         return this.relations.indexOf(vertex);
     }
-    
+
     public T fromIndex(int index){
         return this.relations.get(index);
     }
@@ -34,7 +35,7 @@ public class Graph<T> {
     public Collection<Integer> getAdjacentVertexIndices(Integer vertex){
         return this.edges.get(vertex);
     }
-    
+
     public Collection<T> getAdjacentVertexes(T vertex){
         Collection<Integer> dstIndices = this.edges.get(this.toIndex(vertex));
         Collection<T> ret = new ArrayList<T>(dstIndices.size());
@@ -57,7 +58,7 @@ public class Graph<T> {
     }
 
     public String toString(){
-    	StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         sb.append("[\n");
         for(int srcIndex=0; srcIndex<this.edges.size(); srcIndex++){
             T src = this.relations.get(srcIndex);
@@ -67,6 +68,16 @@ public class Graph<T> {
                 dsts.add(dst);
             }
             sb.append("    " + src + " -> " + dsts + ",\n");
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
+    public String toStringIndex(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("[\n");
+        for(int srcIndex=0; srcIndex<this.edges.size(); srcIndex++){
+            sb.append("    " + srcIndex + " -> " + this.edges.get(srcIndex) + ",\n");
         }
         sb.append("]");
         return sb.toString();

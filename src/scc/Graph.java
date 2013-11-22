@@ -57,6 +57,36 @@ public class Graph<T> {
         this.edges.get(this.relations.indexOf(src)).add(this.relations.indexOf(dst));
     }
 
+    public Set<T> getRoots(){
+        Set<Integer> ret = new HashSet<Integer>(this.getVertexes().size());
+        for(int v=0;v<this.getVertexes().size();v++){
+            ret.add(v);
+        }
+        for(int v=0;v<this.getVertexes().size();v++){
+            for(int w : this.getAdjacentVertexIndices(v)){
+                ret.remove(w);
+            }
+        }
+        Set<T> ret_ = new HashSet<T>(ret.size());
+        for(int v : ret){
+            ret_.add(this.fromIndex(v));
+        }
+        return ret_;
+    }
+
+    public Set<T> findSelfLoop(){
+        Set<T> ret = new HashSet<T>();
+        for(int v=0;v<this.getVertexes().size();v++){
+            for(int w : this.getAdjacentVertexIndices(v)){
+                if(w == v){
+                    ret.add(this.fromIndex(v));
+                    continue;
+                }
+            }
+        }
+        return ret;
+    }
+
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("[\n");

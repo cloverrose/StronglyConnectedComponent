@@ -1,6 +1,5 @@
 package scc;
 import java.util.*;
-import java.io.PrintStream;
 import gnu.trove.set.hash.THashSet;
 
 public class Graph<T> {
@@ -57,12 +56,9 @@ public class Graph<T> {
         this.edges.get(this.relations.indexOf(src)).add(this.relations.indexOf(dst));
     }
 
-    public void show(){
-        this.show(System.out);
-    }
-
-    public void show(PrintStream out){
-        out.println("[");
+    public String toString(){
+    	StringBuilder sb = new StringBuilder();
+        sb.append("[\n");
         for(int srcIndex=0; srcIndex<this.edges.size(); srcIndex++){
             T src = this.relations.get(srcIndex);
             Collection<T> dsts = new ArrayList<T>(this.edges.get(srcIndex).size());
@@ -70,8 +66,9 @@ public class Graph<T> {
                 T dst = this.relations.get(dstIndex);
                 dsts.add(dst);
             }
-            out.println("    " + src + " -> " + dsts + ",");
+            sb.append("    " + src + " -> " + dsts + ",\n");
         }
-        out.println("]");
+        sb.append("]");
+        return sb.toString();
     }
 }

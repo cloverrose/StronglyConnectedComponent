@@ -18,11 +18,6 @@ public class SCC<T> {
         num.set(vertex, counter.value);
         S.push(vertex);
         for(Integer w : g.getAdjacentVertexIndices(vertex)){
-            for(Set<Integer> scc : sccs){
-                if(scc.contains(w)){
-                    continue;
-                }
-            }
             if(num.get(w) == NULL){
                 visit(g, w, sccs, S, low, num, counter);
                 low.set(vertex, Math.min(low.get(vertex), low.get(w)));
@@ -53,21 +48,19 @@ public class SCC<T> {
             roots_.add(g.toIndex(root));
         }
         Set<Set<Integer>> sccs = new THashSet<Set<Integer>>();
+        int size = g.getVertexes().size();
+        ArrayList<Integer> num = new ArrayList<Integer>(size);
+        ArrayList<Integer> low = new ArrayList<Integer>(size);
+        for(int i=0; i<size; i++){
+            num.add(NULL);
+            low.add(NULL);
+        }
+        Stack<Integer> S = new Stack<Integer>();
+        Counter counter = new Counter(0);
         for(Integer v : roots_){
-            for(Set<Integer> scc : sccs){
-                if(scc.contains(v)){
-                    continue;
-                }
-            }
-            ArrayList<Integer> num = new ArrayList<Integer>(g.getVertexes().size());
-            ArrayList<Integer> low = new ArrayList<Integer>(g.getVertexes().size());
-            for(int i=0; i<g.getVertexes().size(); i++){
-                num.add(NULL);
-                low.add(NULL);
-            }
-            Stack<Integer> S = new Stack<Integer>();
-            Counter counter = new Counter(0);
-            visit(g, v, sccs, S, low, num, counter);
+        	if(num.get(v) == NULL){
+        		visit(g, v, sccs, S, low, num, counter);
+        	}
         }
         return sccs;
     }

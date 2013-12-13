@@ -57,7 +57,7 @@ public class Graph<T> {
         this.edges.get(this.relations.indexOf(src)).add(this.relations.indexOf(dst));
     }
 
-    public Set<T> getRoots(){
+    public Set<Integer> getRootIndices(){
         Set<Integer> ret = new THashSet<Integer>(this.getVertexes().size());
         for(int v=0;v<this.getVertexes().size();v++){
             ret.add(v);
@@ -67,6 +67,11 @@ public class Graph<T> {
                 ret.remove(w);
             }
         }
+        return ret;
+    }
+    
+    public Set<T> getRoots(){
+        Set<Integer> ret = getRootIndices();
         Set<T> ret_ = new THashSet<T>(ret.size());
         for(int v : ret){
             ret_.add(this.fromIndex(v));

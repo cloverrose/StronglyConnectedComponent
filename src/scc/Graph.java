@@ -64,7 +64,9 @@ public class Graph<T> {
         }
         for(int v=0;v<this.getVertexes().size();v++){
             for(int w : this.getAdjacentVertexIndices(v)){
-                ret.remove(w);
+                if(w != v){
+                    ret.remove(w);
+                }
             }
         }
         return ret;

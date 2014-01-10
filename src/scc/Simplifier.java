@@ -20,7 +20,10 @@ public class Simplifier<T> {
         for(Set<T> scc : sccs){
             for(T vertex : scc){
                 for(T w : graph.getAdjacentVertexes(vertex)){
-                    ret.addEdge(scc, belongingComponent.get(w));
+                    Set<T> target = belongingComponent.get(w);
+                    if(!target.equals(scc)){
+                        ret.addEdge(scc, target);
+                    }
                 }
             }
         }

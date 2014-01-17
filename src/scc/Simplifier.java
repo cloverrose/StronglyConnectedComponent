@@ -1,10 +1,15 @@
 package scc;
 import java.util.*;
+import gnu.trove.map.hash.THashMap;
 
 public class Simplifier<T> {
     public Graph<Set<T>> simplify(Graph<T> graph){
-        Set<Set<T>> sccs = new SCC<T>().stronglyConnectedComponents(graph);
-        Map<T, Set<T>> belongingComponent = new HashMap<T, Set<T>>();
+        return this.simplify(graph, graph.getVertexes());
+    }
+
+    public Graph<Set<T>> simplify(Graph<T> graph, Collection<T> roots){
+        Set<Set<T>> sccs = new SCC<T>().stronglyConnectedComponents(graph, roots);
+        Map<T, Set<T>> belongingComponent = new THashMap<T, Set<T>>();
         for(Set<T> scc : sccs){
             for(T vertex : scc){
                 belongingComponent.put(vertex, scc);
@@ -15,7 +20,10 @@ public class Simplifier<T> {
         for(Set<T> scc : sccs){
             for(T vertex : scc){
                 for(T w : graph.getAdjacentVertexes(vertex)){
-                    ret.addEdge(scc, belongingComponent.get(w));
+                    Set<T> target = belongingComponent.get(w);
+                    if(!target.equals(scc)){
+                        ret.addEdge(scc, target);
+                    }
                 }
             }
         }
